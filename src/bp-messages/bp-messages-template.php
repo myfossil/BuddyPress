@@ -1562,7 +1562,9 @@ function bp_message_get_notices() {
 		return false;
 	}
 
+	/* Disable ability to hide closed messages.  "Close" button is also commented out below.
 	$closed_notices = bp_get_user_meta( bp_loggedin_user_id(), 'closed_notices', true );
+	*/
 
 	if ( empty( $closed_notices ) ) {
 		$closed_notices = array();
@@ -1574,8 +1576,8 @@ function bp_message_get_notices() {
 			<div id="message" class="info notice" rel="n-<?php echo esc_attr( $notice->id ); ?>">
 				<p>
 					<strong><?php echo stripslashes( wp_filter_kses( $notice->subject ) ) ?></strong><br />
-					<?php echo stripslashes( wp_filter_kses( $notice->message) ) ?>
-					<a href="#" id="close-notice"><?php _e( 'Close', 'buddypress' ) ?></a>
+					<?php echo nl2br( stripslashes( wp_filter_kses( make_clickable( $notice->message ) ) ) ); ?>
+					<!--<a href="#" id="close-notice"><?php _e( 'Close', 'buddypress' ) ?></a>-->
 				</p>
 			</div>
 			<?php
